@@ -25,11 +25,11 @@ namespace MongoDbTest
         /// <param name="fieldValue"></param>
         private async void AddNewFieldInAnExistingDocument(string userName, string fieldName, string fieldValue)
         {
-            var users = await _usersRepo.GetUsersByField("name", userName);
+            var users = await _usersRepo.GetUsersByFieldAsync("name", userName);
 
             var user = users.FirstOrDefault();
 
-            await _usersRepo.UpdateUser(user.Id, fieldName, fieldValue);
+            await _usersRepo.UpdateUserAsync(user.Id, fieldName, fieldValue);
         }
     }
 }

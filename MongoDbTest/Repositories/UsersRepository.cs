@@ -51,7 +51,7 @@ namespace MongoDbTest.Repositories
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public async Task InserUser(User user)
+        public async Task InserUserAsync(User user)
         {
             await _usersCollection.InsertOneAsync(user);
         }
@@ -63,7 +63,7 @@ namespace MongoDbTest.Repositories
         /// <summary>
         /// Returning all data from 'users' collection.
         /// </summary>
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
             return await _usersCollection.Find(new BsonDocument()).ToListAsync();
         }
@@ -74,7 +74,7 @@ namespace MongoDbTest.Repositories
         /// <param name="fieldName"></param>
         /// <param name="fieldValue"></param>
         /// <returns></returns>
-        public async Task<List<User>> GetUsersByField(string fieldName, string fieldValue)
+        public async Task<List<User>> GetUsersByFieldAsync(string fieldName, string fieldValue)
         {
             var filter = Builders<User>.Filter.Eq(fieldName, fieldValue);
 
@@ -86,7 +86,7 @@ namespace MongoDbTest.Repositories
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<User> GetUsersByName(string name)
+        public async Task<User> GetUsersByNameAsync(string name)
         {
             return await _usersCollection.Find(rec => rec.Name.Equals(name)).FirstOrDefaultAsync();
         }
@@ -98,7 +98,7 @@ namespace MongoDbTest.Repositories
         /// <param name="startingFrom"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public async Task<List<User>> GetUsers(int startingFrom, int count)
+        public async Task<List<User>> GetUsersAsync(int startingFrom, int count)
         {
             var result = await _usersCollection.Find(new BsonDocument())
                                                 .Skip(startingFrom)
@@ -122,7 +122,7 @@ namespace MongoDbTest.Repositories
         /// True - If user is updated.
         /// False - If user is not updated.
         /// </returns>
-        public async Task<bool> UpdateUser(ObjectId id, string updateFieldName, string updateStringValue)
+        public async Task<bool> UpdateUserAsync(ObjectId id, string updateFieldName, string updateStringValue)
         {
             var filter = Builders<User>.Filter.Eq("_id", id);
             var update = Builders<User>.Update.Set(updateFieldName, updateFieldName);
@@ -144,7 +144,7 @@ namespace MongoDbTest.Repositories
         /// True - If user was deleted.
         /// False - If user was not deleted.
         /// </returns>
-        public async Task<bool> DeleteUserById(ObjectId id)
+        public async Task<bool> DeleteUserByIdAsync(ObjectId id)
         {
             var filter = Builders<User>.Filter.Eq("_id", id);
             var result = await _usersCollection.DeleteOneAsync(filter);
@@ -156,7 +156,7 @@ namespace MongoDbTest.Repositories
         /// Removing all data from 'users' collection
         /// </summary>
         /// <returns></returns>
-        public async Task<long> DeleteAllUsers()
+        public async Task<long> DeleteAllUsersAsync()
         {
             var filter = new BsonDocument();
             var result = await _usersCollection.DeleteManyAsync(filter);
@@ -170,7 +170,7 @@ namespace MongoDbTest.Repositories
         /// <summary>
         /// Creates index on defined field.
         /// </summary>
-        public async Task CreateIndexOnCollection(IMongoCollection<BsonDocument> collection, string field)
+        public async Task CreateIndexOnCollectionAsync(IMongoCollection<BsonDocument> collection, string field)
         {
             /* 
             //Old(obsolete) implementation
@@ -187,7 +187,7 @@ namespace MongoDbTest.Repositories
         /// <summary>
         /// Creates index on Name field
         /// </summary>
-        public async Task CreateIndexOnNameField()
+        public async Task CreateIndexOnNameFieldAsync()
         {
             /* 
             //Oldobsolete) implementation
